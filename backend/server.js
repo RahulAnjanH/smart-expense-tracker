@@ -6,8 +6,11 @@ const path = require('path');
 const userRoutes = require('./routes/users');
 const expenseRoutes = require('./routes/expenses');
 const categoryRoutes = require('./routes/categories');
+const aiRoutes = require('./routes/aiRoutes');
 
-dotenv.config({ path: path.join(__dirname, '.env') });
+// dotenv.config({ path: path.join(__dirname, '.env') });
+require("dotenv").config(); 
+console.log("LOADED API KEY?", process.env.PERPLEXITY_API_KEY ? "YES" : "NO");
 const app = express();
 
 // Middleware
@@ -18,7 +21,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/categories', categoryRoutes);
-
+app.use('/api/ai', aiRoutes);
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
